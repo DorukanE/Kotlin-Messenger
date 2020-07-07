@@ -108,16 +108,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewRegister"
+        android:id="@+id/circleProfileImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="@+id/selectPhotoButton"
         app:layout_constraintEnd_toEndOf="@+id/selectPhotoButton"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/selectPhotoButton"
-        app:layout_constraintTop_toTopOf="@+id/selectPhotoButton">
-
-    </de.hdodenhof.circleimageview.CircleImageView>
+        app:layout_constraintTop_toTopOf="@+id/selectPhotoButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

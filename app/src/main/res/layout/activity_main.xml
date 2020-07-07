@@ -13,62 +13,35 @@
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        android:background="@android:color/white"
+        android:background="@drawable/rounded_text"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="#660812"
-        android:text="REGISTER"
-        android:textColor="#D8D8D8"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/passwordTextRegister"
-        app:layout_constraintStart_toStartOf="@+id/passwordTextRegister"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextRegister" />
-
-    <EditText
-        android:id="@+id/emailTextRegister"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:ems="10"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/usernameTextRegister"
-        app:layout_constraintStart_toStartOf="@+id/usernameTextRegister"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTextRegister" />
+        app:layout_constraintTop_toBottomOf="@+id/selectPhotoButton" />
 
     <EditText
         android:id="@+id/passwordTextRegister"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_text"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/emailTextRegister"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/emailTextRegister"
         app:layout_constraintTop_toBottomOf="@+id/emailTextRegister" />
 
@@ -76,12 +49,75 @@
         android:id="@+id/accountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Already have an account ?"
         android:textColor="#D8D8D8"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/registerButton"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="@+id/registerButton"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+    <EditText
+        android:id="@+id/emailTextRegister"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_text"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/usernameTextRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/usernameTextRegister"
+        app:layout_constraintTop_toBottomOf="@+id/usernameTextRegister" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="monospace"
+        android:text="REGISTER"
+        android:textColor="#D8D8D8"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTextRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordTextRegister"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTextRegister" />
+
+    <Button
+        android:id="@+id/selectPhotoButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_image_view"
+        android:text="Select Photo"
+        android:textColor="#D8D8D8"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewRegister"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/selectPhotoButton"
+        app:layout_constraintEnd_toEndOf="@+id/selectPhotoButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/selectPhotoButton"
+        app:layout_constraintTop_toTopOf="@+id/selectPhotoButton">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

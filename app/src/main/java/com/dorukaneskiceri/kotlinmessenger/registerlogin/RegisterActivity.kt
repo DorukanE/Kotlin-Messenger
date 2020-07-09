@@ -1,4 +1,4 @@
-package com.dorukaneskiceri.kotlinmessenger
+package com.dorukaneskiceri.kotlinmessenger.registerlogin
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import com.dorukaneskiceri.kotlinmessenger.R
+import com.dorukaneskiceri.kotlinmessenger.messages.LatestMessagesActivity
+import com.dorukaneskiceri.kotlinmessenger.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -30,7 +33,8 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         accountText.setOnClickListener {
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this,
+                LoginActivity::class.java)
             startActivity(intent)
         }
 
@@ -98,11 +102,16 @@ class RegisterActivity : AppCompatActivity() {
         val ref = database.getReference("/users/$userUid")
 
         if(userUid != null){
-            val user = User(userUid, usernameTextRegister.text.toString(), imageUrl)
+            val user = User(
+                userUid,
+                usernameTextRegister.text.toString(),
+                imageUrl
+            )
             ref.setValue(user).addOnSuccessListener{
                 println("User successfully added to Firebase Database")
 
-                val intent = Intent(this,LatestMessagesActivity::class.java)
+                val intent = Intent(this,
+                    LatestMessagesActivity::class.java)
                 //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
@@ -111,10 +120,6 @@ class RegisterActivity : AppCompatActivity() {
                 println(it.localizedMessage.toString())
             }
         }
-    }
-
-    class User(val uid: String, val username: String, val imageUrl: String){
-        constructor(): this(uid = "", username = "", imageUrl = "")
     }
 }
 

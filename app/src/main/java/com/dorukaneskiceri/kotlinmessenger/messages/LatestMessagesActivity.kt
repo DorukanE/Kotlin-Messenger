@@ -1,4 +1,4 @@
-package com.dorukaneskiceri.kotlinmessenger
+package com.dorukaneskiceri.kotlinmessenger.messages
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.dorukaneskiceri.kotlinmessenger.R
+import com.dorukaneskiceri.kotlinmessenger.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LatestMessagesActivity : AppCompatActivity() {
@@ -21,7 +23,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid
 
         if(uid == null){
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -36,13 +38,14 @@ class LatestMessagesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.newMessage -> {
-                val intent = Intent(this,NewMessagesActivity::class.java)
+                val intent = Intent(this,
+                    NewMessagesActivity::class.java)
                 startActivity(intent)
             }
             R.id.signOut -> {
                 FirebaseAuth.getInstance().signOut()
                 Toast.makeText(this,"Signing Out..",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this,RegisterActivity::class.java)
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
             }

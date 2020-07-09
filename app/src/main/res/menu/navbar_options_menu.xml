@@ -11,5 +11,5 @@
         android:id="@+id/signOut"
         android:icon="@drawable/exit"
         android:title="Sign Out"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 </menu>

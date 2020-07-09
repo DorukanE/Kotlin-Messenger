@@ -1,9 +1,11 @@
-package com.dorukaneskiceri.kotlinmessenger
+package com.dorukaneskiceri.kotlinmessenger.registerlogin
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.dorukaneskiceri.kotlinmessenger.R
+import com.dorukaneskiceri.kotlinmessenger.messages.LatestMessagesActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -18,7 +20,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         backToRegisterText.setOnClickListener{
-            val intent = Intent(this,RegisterActivity::class.java)
+            val intent = Intent(this,
+                RegisterActivity::class.java)
             startActivity(intent)
         }
     }
@@ -32,7 +35,8 @@ class LoginActivity : AppCompatActivity() {
                 println("Sign In completed.")
                 Toast.makeText(this,"Sign in successful.",Toast.LENGTH_LONG).show()
 
-                val intent = Intent(this,LatestMessagesActivity::class.java)
+                val intent = Intent(this,
+                    LatestMessagesActivity::class.java)
                 //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()

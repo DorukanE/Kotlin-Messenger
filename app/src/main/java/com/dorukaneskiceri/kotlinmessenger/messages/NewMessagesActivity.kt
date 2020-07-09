@@ -1,8 +1,13 @@
-package com.dorukaneskiceri.kotlinmessenger
+package com.dorukaneskiceri.kotlinmessenger.messages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dorukaneskiceri.kotlinmessenger.R
+import com.dorukaneskiceri.kotlinmessenger.models.User
+import com.dorukaneskiceri.kotlinmessenger.registerlogin.RegisterActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -12,6 +17,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.activity_new_messages.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.new_message_user_row.*
 import kotlinx.android.synthetic.main.new_message_user_row.view.*
 
 class NewMessagesActivity : AppCompatActivity() {
@@ -29,6 +36,7 @@ class NewMessagesActivity : AppCompatActivity() {
 
     // Fetching users from Firebase Database [ Firebase Firestore could be used. ]
     private fun fetchUsers(){
+
         val ref = FirebaseDatabase.getInstance().getReference("/users")
         ref.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -39,18 +47,26 @@ class NewMessagesActivity : AppCompatActivity() {
                 val adapter = GroupAdapter<GroupieViewHolder>()
 
                 snapshot.children.forEach {
-                    val user = it.getValue(RegisterActivity.User::class.java)
+                    val user = it.getValue(User::class.java)
                     if(user != null){
                         adapter.add(UserItem(user))
                     }
-                    newMessageRecyclerView.adapter = adapter
                 }
-            }
 
+                adapter.setOnItemClickListener { item, view ->
+
+                    val userItem = item as UserItem
+                    val intent = Intent(view.context, ChatActivity::class.java)
+                    intent.putExtra("user",userItem.user)
+                    startActivity(intent)
+                    finish()
+                }
+                newMessageRecyclerView.adapter = adapter
+            }
         })
     }
 
-    class UserItem(private val user: RegisterActivity.User): Item<GroupieViewHolder>(){
+    class UserItem(val user: User): Item<GroupieViewHolder>(){
         override fun getLayout(): Int {
             return R.layout.new_message_user_row
         }

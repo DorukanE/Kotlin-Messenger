@@ -1,11 +1,11 @@
 package com.dorukaneskiceri.kotlinmessenger
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,7 +18,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         backToRegisterText.setOnClickListener{
-            finish()
+            val intent = Intent(this,RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -30,6 +31,13 @@ class LoginActivity : AppCompatActivity() {
             loginAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                 println("Sign In completed.")
                 Toast.makeText(this,"Sign in successful.",Toast.LENGTH_LONG).show()
+
+                val intent = Intent(this,LatestMessagesActivity::class.java)
+                //intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+                //finishActivity()
+
             }.addOnFailureListener {
                 Toast.makeText(this,"Username or Password is incorrect.",Toast.LENGTH_LONG).show()
                 println(it.localizedMessage.toString())

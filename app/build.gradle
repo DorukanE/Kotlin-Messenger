@@ -41,5 +41,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
+    implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
+    //implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "com.xwray:groupie:2.8.0"
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

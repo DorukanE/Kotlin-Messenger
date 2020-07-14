@@ -47,7 +47,9 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun listenForMessages(){
-        val database = FirebaseDatabase.getInstance().getReference("/messages")
+        val fromId = registerAuth.uid
+        val toId = toUser?.uid
+        val database = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
         database.addChildEventListener(object : ChildEventListener{
 
@@ -83,18 +85,31 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun performSendMessages(){
-        val database = FirebaseDatabase.getInstance().getReference("/messages").push()
 
         val textMessage = messageText_chat_activity.text.toString()
         val fromId = registerAuth.uid
         val userKey = intent.getParcelableExtra<User>("user")
         val toId = userKey.uid
 
+        //For From messages
+        val database = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+
         if(fromId == null) return
         val message = ChatMessage(database.key!!, textMessage, fromId, toId, System.currentTimeMillis() / 1000)
 
         database.setValue(message).addOnSuccessListener {
             println("Message save successful")
+            messageText_chat_activity.text.clear()
+            recyclerview_chat_screen.scrollToPosition(adapter.itemCount - 1)
+        }.addOnFailureListener {
+            println(it.localizedMessage.toString())
+        }
+
+        //For To messages
+        val toDatabase = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
+
+        toDatabase.setValue(message).addOnSuccessListener {
+            println("Message save for other user is successful.")
         }.addOnFailureListener {
             println(it.localizedMessage.toString())
         }

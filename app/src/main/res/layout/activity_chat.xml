@@ -8,7 +8,7 @@
     tools:context=".messages.ChatActivity">
 
     <EditText
-        android:id="@+id/messageText"
+        android:id="@+id/messageText_chat_activity"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginLeft="5dp"
@@ -37,7 +37,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/messageText" />
+        app:layout_constraintTop_toTopOf="@+id/messageText_chat_activity" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_chat_screen"
@@ -45,7 +45,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:background="#B31D2C"
-        app:layout_constraintBottom_toTopOf="@+id/messageText"
+        app:layout_constraintBottom_toTopOf="@+id/messageText_chat_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

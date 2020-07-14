@@ -37,6 +37,7 @@ class NewMessagesActivity : AppCompatActivity() {
     // Fetching users from Firebase Database [ Firebase Firestore could be used. ]
     private fun fetchUsers(){
 
+        val auth = FirebaseAuth.getInstance()
         val ref = FirebaseDatabase.getInstance().getReference("/users")
         ref.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -48,7 +49,7 @@ class NewMessagesActivity : AppCompatActivity() {
 
                 snapshot.children.forEach {
                     val user = it.getValue(User::class.java)
-                    if(user != null){
+                    if(user != null && user.uid != auth.uid){
                         adapter.add(UserItem(user))
                     }
                 }

@@ -12,6 +12,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
@@ -25,6 +26,7 @@ class ChatActivity : AppCompatActivity() {
 
     private val registerAuth = FirebaseAuth.getInstance()
     private val adapter = GroupAdapter<GroupieViewHolder>()
+    var toUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +35,8 @@ class ChatActivity : AppCompatActivity() {
         recyclerview_chat_screen.layoutManager = LinearLayoutManager(this)
         recyclerview_chat_screen.adapter = adapter
 
-        val userKey = intent.getParcelableExtra<User>("user")
-        supportActionBar?.title = userKey.username
+        toUser = intent.getParcelableExtra("user")
+        supportActionBar?.title = toUser?.username
 
         //setupDummyData()
         listenForMessages()
@@ -51,12 +53,14 @@ class ChatActivity : AppCompatActivity() {
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
+                val currentUser = LatestMessagesActivity.currentUser
                 if(chatMessage != null){
                     if(chatMessage.fromId == registerAuth.uid){
-                        adapter.add(ChatItemFrom(chatMessage.message))
+                        adapter.add(ChatItemFrom(chatMessage.message, currentUser!!))
+                        //adapter.add(ChatItemFrom(chatMessage.message,))
                     }
                     else{
-                        adapter.add(ChatItemTo(chatMessage.message))
+                        adapter.add(ChatItemTo(chatMessage.message, toUser!!))
                     }
 
                 }
@@ -82,7 +86,7 @@ class ChatActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance().getReference("/messages").push()
 
         val textMessage = messageText_chat_activity.text.toString()
-        val fromId = FirebaseAuth.getInstance().uid
+        val fromId = registerAuth.uid
         val userKey = intent.getParcelableExtra<User>("user")
         val toId = userKey.uid
 
@@ -96,42 +100,31 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDummyData(){
-
-        val adapter = GroupAdapter<GroupieViewHolder>()
-
-
-        adapter.add(ChatItemFrom("Froom mesaageeeeeeeeee"))
-        adapter.add(ChatItemTo("Hello"))
-        adapter.add(ChatItemFrom("Froom mesaageeeeeeeeee"))
-        adapter.add(ChatItemTo("Hello"))
-        adapter.add(ChatItemFrom("Froom mesaageeeeeeeeee"))
-        adapter.add(ChatItemTo("Hello"))
-        adapter.add(ChatItemFrom("Froom mesaageeeeeeeeee"))
-        adapter.add(ChatItemTo("Hello"))
-        adapter.add(ChatItemFrom("Froom mesaageeeeeeeeee"))
-        adapter.add(ChatItemTo("Hello"))
-
-        recyclerview_chat_screen.adapter = adapter
-    }
-
-    class ChatItemFrom(val text: String): Item<GroupieViewHolder>(){
+    class ChatItemFrom(val text: String, val user: User): Item<GroupieViewHolder>(){
         override fun getLayout(): Int {
             return R.layout.chat_screen_from
         }
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.messageText_from_row.text = text
+
+            val uri = user.imageUrl
+            val circleImageView = viewHolder.itemView.circleImageView_from
+            Picasso.get().load(uri).into(circleImageView)
         }
     }
 
-    class ChatItemTo(val text: String): Item<GroupieViewHolder>(){
+    class ChatItemTo(val text: String, val user: User): Item<GroupieViewHolder>(){
         override fun getLayout(): Int {
             return R.layout.chat_screen_to
         }
 
         override fun bind(viewHolder: GroupieViewHolder, position: Int) {
             viewHolder.itemView.messageText_to_row.text = text
+
+            val uri = user.imageUrl
+            val circleImageView = viewHolder.itemView.circleImageView_to
+            Picasso.get().load(uri).into(circleImageView)
         }
     }
 

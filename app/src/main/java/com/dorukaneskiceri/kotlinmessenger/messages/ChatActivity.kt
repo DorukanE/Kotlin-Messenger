@@ -38,7 +38,6 @@ class ChatActivity : AppCompatActivity() {
         toUser = intent.getParcelableExtra("user")
         supportActionBar?.title = toUser?.username
 
-        //setupDummyData()
         listenForMessages()
 
         sendButton.setOnClickListener {
@@ -69,17 +68,13 @@ class ChatActivity : AppCompatActivity() {
 
             }
 
-            override fun onCancelled(error: DatabaseError) {
-            }
+            override fun onCancelled(error: DatabaseError) {}
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-            }
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-            }
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-            }
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
 
         })
     }
@@ -97,21 +92,37 @@ class ChatActivity : AppCompatActivity() {
         if(fromId == null) return
         val message = ChatMessage(database.key!!, textMessage, fromId, toId, System.currentTimeMillis() / 1000)
 
-        database.setValue(message).addOnSuccessListener {
-            println("Message save successful")
-            messageText_chat_activity.text.clear()
-            recyclerview_chat_screen.scrollToPosition(adapter.itemCount - 1)
-        }.addOnFailureListener {
-            println(it.localizedMessage.toString())
-        }
+        if(textMessage.isNotBlank()){
+            database.setValue(message).addOnSuccessListener {
+                println("Message save successful")
+                messageText_chat_activity.text.clear()
+                recyclerview_chat_screen.scrollToPosition(adapter.itemCount - 1)
+            }.addOnFailureListener {
+                println(it.localizedMessage.toString())
+            }
 
-        //For To messages
-        val toDatabase = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
+            //For To messages
+            val toDatabase = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
-        toDatabase.setValue(message).addOnSuccessListener {
-            println("Message save for other user is successful.")
-        }.addOnFailureListener {
-            println(it.localizedMessage.toString())
+            toDatabase.setValue(message).addOnSuccessListener {
+                println("Message save for other user is successful.")
+            }.addOnFailureListener {
+                println(it.localizedMessage.toString())
+            }
+
+            val latestMessagesRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+            latestMessagesRef.setValue(message).addOnSuccessListener {
+                println("Process Successful")
+            }.addOnFailureListener {
+                println(it.localizedMessage.toString())
+            }
+
+            val latestMessagesRefTo = FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
+            latestMessagesRefTo.setValue(message).addOnSuccessListener {
+                println("Process Successful")
+            }.addOnFailureListener {
+                println(it.localizedMessage.toString())
+            }
         }
     }
 

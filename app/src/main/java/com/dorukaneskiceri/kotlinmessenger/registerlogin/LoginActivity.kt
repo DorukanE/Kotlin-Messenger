@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.setIcon(R.drawable.whatsapp)
 
         loginButton.setOnClickListener {
+            Toast.makeText(this,"Please wait...",Toast.LENGTH_SHORT).show()
             doLogin()
         }
 
@@ -38,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         if(email.isNotEmpty() && password.isNotEmpty()){
             loginAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                 println("Sign In completed.")
-                Toast.makeText(this,"Sign in successful.",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Sign in successful.",Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this,
                     LatestMessagesActivity::class.java)

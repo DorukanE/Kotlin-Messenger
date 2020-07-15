@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorukaneskiceri.kotlinmessenger.R
 import com.dorukaneskiceri.kotlinmessenger.models.ChatMessage
@@ -44,6 +45,7 @@ class LatestMessagesActivity : AppCompatActivity() {
 
         recyclerView_latest_messages.layoutManager = LinearLayoutManager(this)
         recyclerView_latest_messages.adapter = adapter
+        recyclerView_latest_messages.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
 
         listenForLatestMessages()
 

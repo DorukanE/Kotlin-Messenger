@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorukaneskiceri.kotlinmessenger.R
 import com.dorukaneskiceri.kotlinmessenger.models.ChatMessage
 import com.dorukaneskiceri.kotlinmessenger.models.User
+import com.dorukaneskiceri.kotlinmessenger.views.ChatItemFrom
+import com.dorukaneskiceri.kotlinmessenger.views.ChatItemTo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -66,6 +68,7 @@ class ChatActivity : AppCompatActivity() {
 
                 }
 
+                recyclerview_chat_screen.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onCancelled(error: DatabaseError) {}
@@ -123,34 +126,6 @@ class ChatActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 println(it.localizedMessage.toString())
             }
-        }
-    }
-
-    class ChatItemFrom(val text: String, val user: User): Item<GroupieViewHolder>(){
-        override fun getLayout(): Int {
-            return R.layout.chat_screen_from
-        }
-
-        override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-            viewHolder.itemView.messageText_from_row.text = text
-
-            val uri = user.imageUrl
-            val circleImageView = viewHolder.itemView.circleImageView_from
-            Picasso.get().load(uri).into(circleImageView)
-        }
-    }
-
-    class ChatItemTo(val text: String, val user: User): Item<GroupieViewHolder>(){
-        override fun getLayout(): Int {
-            return R.layout.chat_screen_to
-        }
-
-        override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-            viewHolder.itemView.messageText_to_row.text = text
-
-            val uri = user.imageUrl
-            val circleImageView = viewHolder.itemView.circleImageView_to
-            Picasso.get().load(uri).into(circleImageView)
         }
     }
 

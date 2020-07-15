@@ -1,8 +1,10 @@
 package com.dorukaneskiceri.kotlinmessenger.messages
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.renderscript.Sampler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,12 +14,14 @@ import com.dorukaneskiceri.kotlinmessenger.R
 import com.dorukaneskiceri.kotlinmessenger.models.ChatMessage
 import com.dorukaneskiceri.kotlinmessenger.models.User
 import com.dorukaneskiceri.kotlinmessenger.registerlogin.RegisterActivity
+import com.dorukaneskiceri.kotlinmessenger.views.LatestChatScreen
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.latest_chat_screen.view.*
 
@@ -33,6 +37,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
+
         recyclerView_latest_messages.layoutManager = LinearLayoutManager(this)
         recyclerView_latest_messages.adapter = adapter
 
@@ -41,6 +46,13 @@ class LatestMessagesActivity : AppCompatActivity() {
         fetchCurrentUsers()
 
         checkUserIsLoggedIn()
+
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(view.context,ChatActivity::class.java)
+            val user = item as LatestChatScreen
+            intent.putExtra("user", user.user)
+            startActivity(intent)
+        }
     }
 
     //Used hashmap because we didn't update inside of the recyclerView
@@ -131,20 +143,5 @@ class LatestMessagesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    class LatestChatScreen(val message: ChatMessage): Item<GroupieViewHolder>(){
-        override fun getLayout(): Int {
-            return R.layout.latest_chat_screen
-        }
-
-        override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-            viewHolder.itemView.textLatestMessagesMessage.text = message.message
-//            viewHolder.itemView.textLatestMessagesUsername.text = user.username
-//
-//            val uri = user.imageUrl
-//            Picasso.get().load(uri).into(viewHolder.itemView.imageView_latest_messages)
-        }
-
     }
 }

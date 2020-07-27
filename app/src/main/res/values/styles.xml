@@ -8,10 +8,10 @@
     </style>
 
     <style name="CustomActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar">
-        <item name="android:background">@color/myBackgroundColor</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
 
-        <item name="background">@color/myBackgroundColor</item>
+        <item name="background">@color/colorPrimary</item>
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 

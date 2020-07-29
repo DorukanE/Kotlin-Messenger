@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.title = "    Messenger"
         supportActionBar?.setDisplayUseLogoEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setIcon(R.drawable.whatsapp)
+        supportActionBar?.setIcon(R.mipmap.ic_launcher_round)
 
         loginButton.setOnClickListener {
             Toast.makeText(this,"Please wait...",Toast.LENGTH_SHORT).show()

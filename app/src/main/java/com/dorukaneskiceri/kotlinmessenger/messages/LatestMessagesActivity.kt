@@ -41,7 +41,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         supportActionBar?.title = "    Messenger"
         supportActionBar?.setDisplayUseLogoEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setIcon(R.drawable.whatsapp)
+        supportActionBar?.setIcon(R.mipmap.ic_launcher_round)
 
         recyclerView_latest_messages.layoutManager = LinearLayoutManager(this)
         recyclerView_latest_messages.adapter = adapter

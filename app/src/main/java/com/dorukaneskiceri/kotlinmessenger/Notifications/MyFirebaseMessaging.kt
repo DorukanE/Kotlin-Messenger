@@ -3,6 +3,7 @@ package com.dorukaneskiceri.kotlinmessenger.Notifications
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,8 +12,11 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationBuilderWithBuilderAccessor
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import com.dorukaneskiceri.kotlinmessenger.messages.ChatActivity
+import com.dorukaneskiceri.kotlinmessenger.messages.LatestMessagesActivity
+import com.dorukaneskiceri.kotlinmessenger.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -47,17 +51,14 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
         val title = mRemoteMessage.data["title"]
         val body = mRemoteMessage.data["body"]
 
-        val notification = mRemoteMessage.notification
-
         val counter = user!!.replace("[\\D]".toRegex(), "").toInt()
-        val intent = Intent(this, ChatActivity::class.java)
+        val intent = Intent(this, LatestMessagesActivity::class.java)
 
-        val bundle = Bundle()
-        bundle.putString("userId",user)
-        intent.putExtras(bundle)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
+        }
 
-        val pendingIntent = PendingIntent.getActivity(this,counter,intent,PendingIntent.FLAG_ONE_SHOT)
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val oreoNotification = OreoNotification(this)
@@ -79,24 +80,27 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
         val body = mRemoteMessage.data["body"]
 
         val counter = user!!.replace("[\\D]".toRegex(), "").toInt()
-        val intent = Intent(this, ChatActivity::class.java)
+        val intent = Intent(this, LatestMessagesActivity::class.java)
 
-        val bundle = Bundle()
-        bundle.putString("userId",user)
-        intent.putExtras(bundle)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
+            addNextIntentWithParentStack(intent)
+            getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
+        }
 
-        val pendingIntent = PendingIntent.getActivity(this,counter,intent,PendingIntent.FLAG_ONE_SHOT)
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val builder: NotificationCompat.Builder = NotificationCompat.Builder(this)
-            .setLights(Color.rgb(0,0,255),1500,1000)
-            .setSmallIcon(icon!!.toInt())
-            .setContentTitle(title)
-            .setContentText(body)
-            .setAutoCancel(true)
-            .setSound(defaultSound)
-            .setContentIntent(pendingIntent)
+        val builder: NotificationCompat.Builder = NotificationCompat.Builder(this).apply {
+            setLights(Color.rgb(0,0,255),1500,1000)
+            setSmallIcon(icon!!.toInt())
+            setContentTitle(title)
+            setContentText(body)
+            setAutoCancel(true)
+            setSound(defaultSound)
+            setContentIntent(pendingIntent)
+        }
+//        with(NotificationManagerCompat.from(this)){
+//            notify(counter,builder.build())
+//        }
 
         val noti = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

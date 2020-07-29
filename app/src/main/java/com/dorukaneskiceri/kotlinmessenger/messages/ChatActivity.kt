@@ -39,6 +39,7 @@ class ChatActivity : AppCompatActivity() {
         apiService = Client.Client.getClient("https://fcm.googleapis.com/")!!.create(APIService::class.java)
 
         toUser = intent.getParcelableExtra("user")
+
         supportActionBar?.title = toUser?.username
 
         listenForMessages()
@@ -164,7 +165,7 @@ class ChatActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(dataSnapshot in snapshot.children){
                     val token: Token? = dataSnapshot.getValue(Token::class.java)
-                    val data = Data(registerAuth.uid!!, R.mipmap.ic_launcher, "$username: $textMessage", "New Message", toId!!)
+                    val data = Data(registerAuth.uid!!, R.mipmap.ic_launcher, "$username: $textMessage", "Yeni Mesaj", toId!!)
 
                     val sender = Sender(data, token!!.getToken().toString())
 

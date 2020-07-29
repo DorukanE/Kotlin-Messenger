@@ -46,12 +46,14 @@ class OreoNotification(base: Context?): ContextWrapper(base) {
     @TargetApi(Build.VERSION_CODES.O)
     fun getOreoNotification(title: String?, body: String?, pendingIntent: PendingIntent?, soundUri: Uri?, icon: String?): Notification.Builder{
 
-        return Notification.Builder(applicationContext, CHANNEL_ID)
-            .setContentIntent(pendingIntent)
-            .setContentTitle(title)
-            .setContentText(body)
-            .setSmallIcon(icon!!.toInt())
-            .setSound(soundUri)
-            .setAutoCancel(true)
+        return Notification.Builder(applicationContext, CHANNEL_ID).apply {
+            setContentIntent(pendingIntent)
+            setContentTitle(title)
+            setContentText(body)
+            setSmallIcon(icon!!.toInt())
+            setSound(soundUri)
+            setAutoCancel(true)
+        }
+
     }
 }

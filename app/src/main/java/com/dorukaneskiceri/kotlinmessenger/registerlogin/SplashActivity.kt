@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.MonthDisplayHelper
 import com.dorukaneskiceri.kotlinmessenger.R
 import com.dorukaneskiceri.kotlinmessenger.messages.LatestMessagesActivity
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -13,7 +14,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
         supportActionBar?.hide()
 
         Handler().postDelayed({
@@ -21,5 +21,9 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         },1800)
+        //Real SplashScreen
+//        val intent = Intent(this,LatestMessagesActivity::class.java)
+//        startActivity(intent)
+//        finish()
     }
 }

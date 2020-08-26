@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".registerlogin.SplashActivity">
+<!--            android:theme="@style/SplashActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

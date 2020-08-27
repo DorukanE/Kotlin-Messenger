@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".registerlogin.SplashActivity">
+        <activity android:name=".registerlogin.SplashActivity"
+            android:screenOrientation="portrait">
 <!--            android:theme="@style/SplashActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,20 +23,25 @@
         </activity>
         <activity
             android:name=".messages.ChatActivity"
-            android:parentActivityName=".messages.LatestMessagesActivity">
+            android:parentActivityName=".messages.LatestMessagesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messages.LatestMessagesActivity" />
         </activity>
-        <activity android:name=".messages.NewMessagesActivity">
+        <activity android:name=".messages.NewMessagesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messages.LatestMessagesActivity" />
         </activity>
-        <activity android:name=".messages.LatestMessagesActivity">
+        <activity android:name=".messages.LatestMessagesActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".registerlogin.RegisterActivity" />
-        <activity android:name=".registerlogin.LoginActivity" />
+        <activity android:name=".registerlogin.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".registerlogin.LoginActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

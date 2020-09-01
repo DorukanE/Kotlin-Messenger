@@ -3,6 +3,7 @@ package com.dorukaneskiceri.kotlinmessenger.messages
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dorukaneskiceri.kotlinmessenger.R
 import com.dorukaneskiceri.kotlinmessenger.models.User
@@ -53,6 +54,7 @@ class NewMessagesActivity : AppCompatActivity() {
                         adapter.add(UserItem(user))
                     }
                 }
+                progressBarNewMsg.visibility = View.INVISIBLE
 
                 adapter.setOnItemClickListener { item, view ->
 

@@ -1,10 +1,8 @@
 package com.dorukaneskiceri.kotlinmessenger.messages
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.Sampler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,13 +16,9 @@ import com.dorukaneskiceri.kotlinmessenger.registerlogin.RegisterActivity
 import com.dorukaneskiceri.kotlinmessenger.views.LatestChatScreen
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_latest_messages.*
-import kotlinx.android.synthetic.main.latest_chat_screen.view.*
 
 class LatestMessagesActivity : AppCompatActivity() {
 
@@ -69,6 +63,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         latestMessagesMap.values.forEach {
             adapter.add(LatestChatScreen(it))
         }
+        progressBarLatestMsg.visibility = View.INVISIBLE
     }
 
     private fun listenForLatestMessages(){

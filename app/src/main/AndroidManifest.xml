@@ -48,7 +48,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".Notifications.MyFirebaseMessaging"
+            android:name=".notifications.MyFirebaseMessaging"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -56,7 +56,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Notifications.MyFirebaseInstanceId"
+            android:name=".notifications.MyFirebaseInstanceId"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

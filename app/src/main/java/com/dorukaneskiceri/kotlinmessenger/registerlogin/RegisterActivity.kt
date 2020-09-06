@@ -79,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
 
             }.addOnFailureListener {
                 Toast.makeText(this,"Registration failed, ${it.localizedMessage}",Toast.LENGTH_LONG).show()
-                println(it.localizedMessage.toString())
+                println(it.localizedMessage?.toString())
             }
         }else{
             Toast.makeText(this,"Please fill the inputs correctly.",Toast.LENGTH_LONG).show()
@@ -98,7 +98,7 @@ class RegisterActivity : AppCompatActivity() {
 
             }
         }.addOnFailureListener{
-            println(it.localizedMessage.toString())
+            println(it.localizedMessage?.toString())
         }
 
     }
@@ -123,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
 
             }.addOnFailureListener {
-                println(it.localizedMessage.toString())
+                println(it.localizedMessage?.toString())
             }
         }
     }

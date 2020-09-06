@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dorukaneskiceri.kotlinmessenger.Notifications.*
+import com.dorukaneskiceri.kotlinmessenger.notifications.*
 import com.dorukaneskiceri.kotlinmessenger.R
-import com.dorukaneskiceri.kotlinmessenger.Fragments.APIService
+import com.dorukaneskiceri.kotlinmessenger.service.APIService
 import com.dorukaneskiceri.kotlinmessenger.models.ChatMessage
 import com.dorukaneskiceri.kotlinmessenger.models.User
 import com.dorukaneskiceri.kotlinmessenger.views.ChatItemFrom
